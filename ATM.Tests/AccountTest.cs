@@ -32,4 +32,13 @@ public class AccountTest
         Assert.False(result);
         Assert.Equal(5000, account.GetBalance());
     }
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-500)]
+    public void Deposit_ZeroOrNegative_ReturnsFalseAndKeepsBalance(int amount)
+    {
+        var result = account.Deposit(amount);
+        Assert.False(result);
+        Assert.Equal(5000, account.GetBalance());
+    }
 }

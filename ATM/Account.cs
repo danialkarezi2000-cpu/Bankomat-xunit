@@ -26,6 +26,10 @@ public class Account
 
     public bool Deposit(int amount)
     {
+        if (amount <= 0)
+        {
+            return false;  // negativt belopp: avbryt och rör inte saldot.
+        }
         Balance += amount;
         return true;
     }

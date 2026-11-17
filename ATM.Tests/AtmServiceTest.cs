@@ -98,4 +98,29 @@ public class AtmServiceTest
         Assert.Equal(WithdrawResult.NotAuthenticated, result);
         Assert.Equal(5000, account.GetBalance());
     }
+
+    [Fact]
+    public void GetBalance_NotAuthenticated_Throws()
+    {
+        atm.InsertCard(card);
+        Assert.Throws<InvalidOperationException>(() => atm.GetBalance());
+    }
+
+    [Fact]
+    public void Deposit_NotAuthenticated_Throws()
+    {
+        atm.InsertCard(card);
+        Assert.Throws<InvalidOperationException>(() => atm.Deposit(1000));
+        card = new Card("1111-2222", "1234", new Account(5000));
+
+    }
+
+    [Fact]
+    public void GetBalance_Authenticated_ReturnsBalance()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        var balance = atm.GetBalance();
+        Assert.Equal(5000, balance);
+    }
 }

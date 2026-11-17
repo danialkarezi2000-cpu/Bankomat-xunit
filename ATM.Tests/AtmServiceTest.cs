@@ -47,4 +47,38 @@ public class AtmServiceTest
         atm.EjectCard();
         Assert.False(atm.HasCardInserted);
     }
+
+    [Fact]
+    public void Withdraw_5000_DeductedFromAccountAndAtm()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        bool result = atm.Withdraw(5000);
+        Assert.True(result);
+        Assert.Equal(0, account.GetBalance());
+        Assert.Equal(2000, atm.AtmBalance);
+    }
+
+    [Fact]
+    public void Withdraw_6000_AccountLacksFunds_NothingDeducted()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        bool result = atm.Withdraw(6000);
+        Assert.False(result);
+        Assert.Equal(5000, account.GetBalance());
+        Assert.Equal(7000, atm.AtmBalance);
+    }
+
+    [Fact]
+    public void Withdraw_8000_AtmLacksCash_NothingDeducted()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        atm.Deposit(3000);   // nu har kontot 8000
+        bool result = atm.Withdraw(8000);
+        Assert.False(result);
+        Assert.Equal(8000, account.GetBalance());
+        Assert.Equal(7000, atm.AtmBalance);
+    }
 }

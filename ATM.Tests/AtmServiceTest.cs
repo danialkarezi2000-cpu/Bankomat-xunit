@@ -81,4 +81,21 @@ public class AtmServiceTest
         Assert.Equal(8000, account.GetBalance());
         Assert.Equal(7000, atm.AtmBalance);
     }
+    [Fact]
+    public void Withdraw_NoCardInserted_ReturnsNoCardInserted()
+    {
+        var result = atm.Withdraw(1000);
+        Assert.Equal(WithdrawResult.NoCardInserted, result);
+        Assert.Equal(7000, atm.AtmBalance);
+    }
+
+    [Fact]
+    public void Withdraw_WrongPin_ReturnsNotAuthenticated()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("2345");
+        var result = atm.Withdraw(1000);
+        Assert.Equal(WithdrawResult.NotAuthenticated, result);
+        Assert.Equal(5000, account.GetBalance());
+    }
 }

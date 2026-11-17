@@ -16,6 +16,10 @@ public class Account
 
     public bool Withdraw(int amount)
     {
+        if (amount <= 0)
+        {
+            return false;  // negativt belopp: avbryt och rör inte saldot.
+        }
         if (amount > Balance)
         {
             return false;   // för lite pengar: avbryt och rör inte saldot

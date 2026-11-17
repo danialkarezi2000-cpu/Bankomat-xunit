@@ -41,4 +41,13 @@ public class AccountTest
         Assert.False(result);
         Assert.Equal(5000, account.GetBalance());
     }
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-500)]
+    public void Withdraw_ZeroOrNegative_ReturnsFalseAndKeepsBalance(int amount)
+    {
+        var result = account.Withdraw(amount);
+        Assert.False(result);
+        Assert.Equal(5000, account.GetBalance());
+    }
 }

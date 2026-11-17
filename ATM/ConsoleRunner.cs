@@ -120,15 +120,25 @@ public static class ConsoleRunner
 
         int amount = int.Parse(input);
         
-        bool success = atm.Withdraw(amount);
+        var result = atm.Withdraw(amount);
 
-        if (success)
+        switch (result)
         {
-            Console.WriteLine("Varsågod, ta dina pengar.");
-        }
-        else
-        {
-            Console.WriteLine("Uttaget kunde inte genomföras.");
+            case WithdrawResult.Success:
+                Console.WriteLine("Varsågod, ta dina pengar.");
+                break;
+            case WithdrawResult.InsufficientAccountFunds:
+                Console.WriteLine("Kontot saknar täckning för uttaget.");
+                break;
+            case WithdrawResult.InsufficientAtmFunds:
+                Console.WriteLine("Bankomaten har inte tillräckligt med kontanter.");
+                break;
+            case WithdrawResult.NotAuthenticated:
+                Console.WriteLine("Du måste ange rätt PIN-kod först.");
+                break;
+            case WithdrawResult.NoCardInserted:
+                Console.WriteLine("Inget kort är insatt.");
+                break;
         }
     }
     

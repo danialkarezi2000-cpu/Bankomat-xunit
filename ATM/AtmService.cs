@@ -44,17 +44,22 @@ public class AtmService
         return _currentCard!.Account.GetBalance();
     }
 
-    public bool Withdraw(int amount)
+    public WithdrawResult Withdraw(int amount)
     {
-        EnsureAuthenticated();
-        if (amount > AtmBalance)
-            return false;
+        if (_currentCard == null)
+            return WithdrawResult.NoCardInserted;
 
-        if (!_currentCard!.Account.Withdraw(amount))
-            return false;
+        if (!_isAuthenticated)
+            return WithdrawResult.NotAuthenticated;
+
+        if (amount > AtmBalance)
+            return WithdrawResult.InsufficientAtmFunds;
+
+        if (!_currentCard.Account.Withdraw(amount))
+            return WithdrawResult.InsufficientAccountFunds;
 
         AtmBalance -= amount;
-        return true;
+        return WithdrawResult.Success;
     }
     
     public bool Deposit(int amount)

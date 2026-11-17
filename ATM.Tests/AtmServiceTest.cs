@@ -53,8 +53,8 @@ public class AtmServiceTest
     {
         atm.InsertCard(card);
         atm.EnterPin("1234");
-        bool result = atm.Withdraw(5000);
-        Assert.True(result);
+        var result = atm.Withdraw(5000);
+        Assert.Equal(WithdrawResult.Success, result);
         Assert.Equal(0, account.GetBalance());
         Assert.Equal(2000, atm.AtmBalance);
     }
@@ -64,8 +64,8 @@ public class AtmServiceTest
     {
         atm.InsertCard(card);
         atm.EnterPin("1234");
-        bool result = atm.Withdraw(6000);
-        Assert.False(result);
+        var result = atm.Withdraw(6000);
+        Assert.Equal(WithdrawResult.InsufficientAccountFunds, result);
         Assert.Equal(5000, account.GetBalance());
         Assert.Equal(7000, atm.AtmBalance);
     }
@@ -76,8 +76,8 @@ public class AtmServiceTest
         atm.InsertCard(card);
         atm.EnterPin("1234");
         atm.Deposit(3000);   // nu har kontot 8000
-        bool result = atm.Withdraw(8000);
-        Assert.False(result);
+        var result = atm.Withdraw(8000);
+        Assert.Equal(WithdrawResult.InsufficientAtmFunds, result);
         Assert.Equal(8000, account.GetBalance());
         Assert.Equal(7000, atm.AtmBalance);
     }

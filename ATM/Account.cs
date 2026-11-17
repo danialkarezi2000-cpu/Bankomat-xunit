@@ -16,14 +16,18 @@ public class Account
 
     public bool Withdraw(int amount)
     {
+        if (amount > Balance)
+        {
+            return false;   // för lite pengar: avbryt och rör inte saldot
+        }
         Balance -= amount;
         return true;
     }
-    
+
     public bool Deposit(int amount)
     {
         Balance += amount;
         return true;
     }
-    
+
 }

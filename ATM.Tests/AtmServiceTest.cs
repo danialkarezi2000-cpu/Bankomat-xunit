@@ -132,4 +132,15 @@ public class AtmServiceTest
         atm.EnterPin("0000");
         Assert.True(card.IsBlocked);
     }
+    [Fact]
+    public void EnterPin_CorrectAfterBlocked_NotAuthenticated()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("0000");
+        atm.EnterPin("0000");
+        atm.EnterPin("0000");
+        bool result = atm.EnterPin("1234");
+        Assert.False(result);
+        Assert.False(atm.IsAuthenticated);
+    }
 }

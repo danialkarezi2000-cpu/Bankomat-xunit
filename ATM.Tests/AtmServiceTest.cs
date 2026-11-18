@@ -123,4 +123,13 @@ public class AtmServiceTest
         var balance = atm.GetBalance();
         Assert.Equal(5000, balance);
     }
+    [Fact]
+    public void EnterPin_WrongThreeTimes_CardIsBlocked()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("0000");
+        atm.EnterPin("0000");
+        atm.EnterPin("0000");
+        Assert.True(card.IsBlocked);
+    }
 }

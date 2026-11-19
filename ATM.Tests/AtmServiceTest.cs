@@ -161,4 +161,12 @@ public class AtmServiceTest
         Assert.Equal(7000, atm.AtmBalance);
         Assert.Equal(5000, card.Account.GetBalance());
     }
+    [Fact]
+    public void Withdraw_CardInsertedWrongPin_BalanceUnchanged()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("0000");
+        atm.Withdraw(1000);
+        Assert.Equal(5000, account.GetBalance());
+    }
 }

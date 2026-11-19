@@ -145,4 +145,12 @@ public class AtmServiceTest
         Assert.False(result);
         Assert.False(atm.IsAuthenticated);
     }
+    [Fact]
+    public void EjectCard_AfterLogin_NotAuthenticated()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        atm.EjectCard();
+        Assert.False(atm.IsAuthenticated);
+    }
 }

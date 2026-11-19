@@ -153,4 +153,12 @@ public class AtmServiceTest
         atm.EjectCard();
         Assert.False(atm.IsAuthenticated);
     }
+    [Fact]
+    public void Withdraw_WithoutCard_BalanceUnchanged()
+    {
+        var result = atm.Withdraw(1000);
+        Assert.Equal(WithdrawResult.NoCardInserted, result);
+        Assert.Equal(7000, atm.AtmBalance);
+        Assert.Equal(5000, card.Account.GetBalance());
+    }
 }

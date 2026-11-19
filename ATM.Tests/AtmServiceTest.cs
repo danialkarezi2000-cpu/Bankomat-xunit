@@ -188,4 +188,16 @@ public class AtmServiceTest
         var result = atm.Withdraw(500);
         Assert.Equal(WithdrawResult.NoCardInserted, result);
     }
+    [Fact]
+    public void GetBalance_withoutCard_Throws()
+    {
+        Assert.Throws<InvalidOperationException>
+        (() => atm.GetBalance());
+    }
+    [Fact]
+    public void Deposit_withoutCard_Throws()
+    {
+        Assert.Throws<InvalidOperationException>
+        (() => atm.Deposit(500));
+    }
 }

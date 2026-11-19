@@ -179,4 +179,13 @@ public class AtmServiceTest
         Assert.Equal(WithdrawResult.OverLimit, result);
         Assert.Equal(7000, account.GetBalance());
     }
+        [Fact]
+    public void Cancel_EjectsCard_WithdrawIsDenied()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        atm.Cancel();
+        var result = atm.Withdraw(500);
+        Assert.Equal(WithdrawResult.NoCardInserted, result);
+    }
 }

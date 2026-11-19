@@ -27,6 +27,10 @@ public class AtmService
         _currentCard = null;
         _isAuthenticated = false;
     }
+    public void Cancel()
+    {
+        EjectCard();
+    }
 
     public bool EnterPin(string pinCode)
     {

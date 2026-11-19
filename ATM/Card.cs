@@ -4,6 +4,7 @@ namespace ATM;
 public class Card
 {
     private int failedAttempts = 0;
+    private const int MaxFailedAttempts = 3;
     public bool IsBlocked { get; private set; }
 
     public string CardNumber { get; }
@@ -26,7 +27,7 @@ public class Card
         if (PinCode != pinCode)
         {
             failedAttempts++;          // ett fel försök till
-            if (failedAttempts >= 3)
+            if (failedAttempts >= MaxFailedAttempts)
             {
                 IsBlocked = true;      // tredje felet: spärra kortet
             }

@@ -127,18 +127,20 @@ public class AtmServiceTest
     public void EnterPin_WrongThreeTimes_CardIsBlocked()
     {
         atm.InsertCard(card);
-        atm.EnterPin("0000");
-        atm.EnterPin("0000");
-        atm.EnterPin("0000");
+        for (int i = 0; i < 3; i++)
+        {
+            atm.EnterPin("0000");
+        }
         Assert.True(card.IsBlocked);
     }
     [Fact]
     public void EnterPin_CorrectAfterBlocked_NotAuthenticated()
     {
         atm.InsertCard(card);
-        atm.EnterPin("0000");
-        atm.EnterPin("0000");
-        atm.EnterPin("0000");
+        for (int i = 0; i < 3; i++)
+        {
+            atm.EnterPin("0000");
+        }
         bool result = atm.EnterPin("1234");
         Assert.False(result);
         Assert.False(atm.IsAuthenticated);

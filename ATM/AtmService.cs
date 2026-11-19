@@ -2,6 +2,7 @@ namespace ATM;
 
 public class AtmService
 {
+    private const int MaxWithdrawal = 5000;
     private Card? _currentCard;
     private bool _isAuthenticated;
 
@@ -55,9 +56,13 @@ public class AtmService
         if (amount > AtmBalance)
             return WithdrawResult.InsufficientAtmFunds;
 
-        if (!_currentCard.Account.Withdraw(amount))
+        if (amount > _currentCard.Account.GetBalance())
             return WithdrawResult.InsufficientAccountFunds;
 
+        if (amount > MaxWithdrawal)
+            return WithdrawResult.OverLimit;
+
+        _currentCard.Account.Withdraw(amount);
         AtmBalance -= amount;
         return WithdrawResult.Success;
     }

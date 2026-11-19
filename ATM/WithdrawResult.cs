@@ -6,5 +6,6 @@ public enum WithdrawResult
     NoCardInserted,
     NotAuthenticated,
     InsufficientAtmFunds,
-    InsufficientAccountFunds
+    InsufficientAccountFunds,
+    OverLimit
 }

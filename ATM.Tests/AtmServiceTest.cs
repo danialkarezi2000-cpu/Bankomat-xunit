@@ -208,5 +208,14 @@ public class AtmServiceTest
         var result = atm.Withdraw(150);
         Assert.Equal(WithdrawResult.InvalidAmount, result);
     }
-
+    [Fact]
+    public void Rescept_AfterWithdraw500_ShowsAmountAndBalance()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        atm.Withdraw(500);
+        var receipt = atm.GetReceipt();
+        Assert.Contains("Uttag: 500 kr", receipt);
+        Assert.Contains("Saldo: 4500 kr", receipt);
+    }
 }

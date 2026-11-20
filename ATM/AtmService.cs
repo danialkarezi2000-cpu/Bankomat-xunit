@@ -8,7 +8,7 @@ public class AtmService
 
     public bool HasCardInserted => _currentCard != null;
     public bool IsAuthenticated => _isAuthenticated;
-    
+    private int _lastWithdrawal;
     public int AtmBalance { get; private set; }
 
     public AtmService(int initialBalance)
@@ -70,6 +70,7 @@ public class AtmService
 
         _currentCard.Account.Withdraw(amount);
         AtmBalance -= amount;
+        _lastWithdrawal = amount;
         return WithdrawResult.Success;
     }
     
@@ -78,7 +79,11 @@ public class AtmService
         EnsureAuthenticated();
         return _currentCard!.Account.Deposit(amount);
     }
-    
+        public string GetReceipt()
+    {
+        return $"Uttag: {_lastWithdrawal} kr\nSaldo: {_currentCard!.Account.GetBalance()} kr";
+    }
+
     public void EnsureAuthenticated()
     {
         if (_currentCard == null || !_isAuthenticated)

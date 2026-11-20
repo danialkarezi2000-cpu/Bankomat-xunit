@@ -22,6 +22,7 @@ public class AtmService
     {
         _currentCard = card;
         _isAuthenticated = false;
+        _failedPinAttempts = 0;
     }
 
     public void EjectCard()

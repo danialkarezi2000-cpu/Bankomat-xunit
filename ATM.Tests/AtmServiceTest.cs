@@ -229,4 +229,17 @@ public class AtmServiceTest
         Assert.False(atm.HasCardInserted);
         Assert.False(atm.EnterPin("1234"));
     }
+        [Fact]
+    public void EnterPin_NewCard_ResetsFailedAttempts()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("2345");
+        atm.EnterPin("2345");
+        atm.EjectCard();
+
+        atm.InsertCard(card);
+        atm.EnterPin("2345");
+
+        Assert.True(atm.HasCardInserted);
+    }
 }

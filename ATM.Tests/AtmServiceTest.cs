@@ -261,4 +261,13 @@ public class AtmServiceTest
         var today = DateTime.Now.ToString("yyyy-MM-dd");
         Assert.Contains(today, atm.GetReceipt());
     }
+    [Fact]
+    public void Deposit_ValidAmount_IncreasesBalance()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        bool success = atm.Deposit(1000);
+        Assert.True(success);
+        Assert.Equal(6000, account.GetBalance());
+    }
 }

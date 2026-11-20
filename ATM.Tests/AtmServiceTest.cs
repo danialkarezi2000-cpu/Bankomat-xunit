@@ -242,4 +242,14 @@ public class AtmServiceTest
 
         Assert.True(atm.HasCardInserted);
     }
+        [Theory]
+    [InlineData(0)]
+    [InlineData(-500)]
+    public void Withdraw_ZeroOrNegative_ReturnsInvalidAmount(int amount)
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        var result = atm.Withdraw(amount);
+        Assert.Equal(WithdrawResult.InvalidAmount, result);
+    }
 }

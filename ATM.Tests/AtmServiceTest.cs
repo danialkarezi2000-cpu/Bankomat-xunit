@@ -201,7 +201,7 @@ public class AtmServiceTest
         (() => atm.Deposit(500));
     }
     [Fact]
-    public void Deposit_withdraw_150_ReturnsInvalidAmount()
+    public void Withdraw_150_ReturnsInvalidAmount()
     {
         atm.InsertCard(card);
         atm.EnterPin("1234");
@@ -209,7 +209,7 @@ public class AtmServiceTest
         Assert.Equal(WithdrawResult.InvalidAmount, result);
     }
     [Fact]
-    public void Rescept_AfterWithdraw500_ShowsAmountAndBalance()
+    public void Receipt_AfterWithdraw500_ShowsAmountAndBalance()
     {
         atm.InsertCard(card);
         atm.EnterPin("1234");

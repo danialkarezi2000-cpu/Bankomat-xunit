@@ -28,7 +28,8 @@ Bankomat/
 - **Card** – att rätt och fel PIN-kod ger rätt resultat.
 - **AtmService** – sätta i och mata ut kort, PIN-kod, uttag och insättning,
   för lite pengar på kontot eller i bankomaten, spärrat kort efter tre fel
-  PIN-koder och kvitto med belopp, saldo och datum.
+  PIN-koder, kvitto med belopp, saldo och datum, att uttag måste vara i hela
+  hundratal och max 5000 kr, samt Avbryt.
 
 ## Fel som hittades och rättades med TDD
 

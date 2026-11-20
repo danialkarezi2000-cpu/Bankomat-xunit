@@ -252,4 +252,13 @@ public class AtmServiceTest
         var result = atm.Withdraw(amount);
         Assert.Equal(WithdrawResult.InvalidAmount, result);
     }
+        [Fact]
+    public void Receipt_ShowsTodaysDate()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        atm.Withdraw(500);
+        var today = DateTime.Now.ToString("yyyy-MM-dd");
+        Assert.Contains(today, atm.GetReceipt());
+    }
 }

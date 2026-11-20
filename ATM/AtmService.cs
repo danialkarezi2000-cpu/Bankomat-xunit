@@ -90,7 +90,7 @@ public class AtmService
     }
         public string GetReceipt()
     {
-        return $"Uttag: {_lastWithdrawal} kr\nSaldo: {_currentCard!.Account.GetBalance()} kr";
+        return $"{DateTime.Now:yyyy-MM-dd HH:mm}\nUttag: {_lastWithdrawal} kr\nSaldo: {_currentCard!.Account.GetBalance()} kr";
     }
 
     public void EnsureAuthenticated()

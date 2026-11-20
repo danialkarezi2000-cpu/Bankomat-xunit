@@ -118,7 +118,11 @@ public static class ConsoleRunner
         Console.Write("Ange belopp att ta ut: ");
         string? input = Console.ReadLine();
 
-        int amount = int.Parse(input);
+              if (!int.TryParse(input, out int amount))
+        {
+            Console.WriteLine("Ogiltigt belopp.");
+            return;
+        }
         
         var result = atm.Withdraw(amount);
 
@@ -147,7 +151,11 @@ public static class ConsoleRunner
         Console.Write("Ange belopp att sätta in: ");
         string? input = Console.ReadLine();
 
-        int amount = int.Parse(input);
+                if (!int.TryParse(input, out int amount))
+        {
+            Console.WriteLine("Ogiltigt belopp.");
+            return;
+        }
 
         bool success = atm.Deposit(amount);
 

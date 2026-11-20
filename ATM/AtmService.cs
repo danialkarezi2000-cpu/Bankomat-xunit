@@ -9,6 +9,8 @@ public class AtmService
     public bool HasCardInserted => _currentCard != null;
     public bool IsAuthenticated => _isAuthenticated;
     private int _lastWithdrawal;
+    private int _failedPinAttempts;
+
     public int AtmBalance { get; private set; }
 
     public AtmService(int initialBalance)
@@ -40,6 +42,12 @@ public class AtmService
         }
 
         _isAuthenticated = _currentCard.MatchesPin(pinCode);
+        if (!_isAuthenticated)
+        {
+            _failedPinAttempts++;
+            if (_failedPinAttempts >= 3)
+                _currentCard = null;
+        }
         return _isAuthenticated;
     }
 

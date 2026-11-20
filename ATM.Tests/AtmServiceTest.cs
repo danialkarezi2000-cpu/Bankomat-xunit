@@ -218,4 +218,15 @@ public class AtmServiceTest
         Assert.Contains("Uttag: 500 kr", receipt);
         Assert.Contains("Saldo: 4500 kr", receipt);
     }
+        [Fact]
+    public void EnterPin_WrongThreeTimes_CardIsRetained()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("2345");
+        atm.EnterPin("2345");
+        atm.EnterPin("2345");
+
+        Assert.False(atm.HasCardInserted);
+        Assert.False(atm.EnterPin("1234"));
+    }
 }

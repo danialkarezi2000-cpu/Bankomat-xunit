@@ -56,6 +56,8 @@ public class AtmService
 
         if (!_isAuthenticated)
             return WithdrawResult.NotAuthenticated;
+        if (amount %100 != 0)
+            return WithdrawResult.InvalidAmount;
 
         if (amount > AtmBalance)
             return WithdrawResult.InsufficientAtmFunds;

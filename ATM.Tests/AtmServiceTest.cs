@@ -200,4 +200,13 @@ public class AtmServiceTest
         Assert.Throws<InvalidOperationException>
         (() => atm.Deposit(500));
     }
+    [Fact]
+    public void Deposit_withdraw_150_ReturnsInvalidAmount()
+    {
+        atm.InsertCard(card);
+        atm.EnterPin("1234");
+        var result = atm.Withdraw(150);
+        Assert.Equal(WithdrawResult.InvalidAmount, result);
+    }
+
 }
